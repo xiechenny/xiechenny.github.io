@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[XXX^^XXX Blog]]></title>
-  <link href="http://xiechenny.github.io/atom.xml" rel="self"/>
+  <title><![CDATA[Category: octopress | XXX^^XXX Blog]]></title>
+  <link href="http://xiechenny.github.io/blog/categories/octopress/atom.xml" rel="self"/>
   <link href="http://xiechenny.github.io/"/>
   <updated>2014-05-07T19:29:38+08:00</updated>
   <id>http://xiechenny.github.io/</id>
@@ -39,20 +39,20 @@ jekyll的英文页面看得实在头大，我几乎都想自己在文本里打&l
 
 <p>2、发高亮代码，和网上众多教程一样对代码高亮支持很好用法也简单：</p>
 
-<p>效果拔群：</p>
-
+<p>效果拔群：
 <div>
   <pre><code class='ruby'>def show
   @widget = Widget(params[:id])
-  respond_to do |format|
-    format.html # show.html.erb
-    format.json { render json: @widget }
-  end
+  respond_to do |format|&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;format.html # show.html.erb
+format.json { render json: @widget }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;  end
 end</code></pre>
 </div>
-
-
-
+</p>
 ]]></content>
   </entry>
   
