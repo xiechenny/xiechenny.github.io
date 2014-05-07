@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: 
+
+Sitemap: http://xiechenny.github.io//github/sitemap.xml 
