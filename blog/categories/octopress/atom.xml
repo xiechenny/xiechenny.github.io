@@ -4,7 +4,7 @@
   <title><![CDATA[Category: octopress | XXX^^XXX Blog]]></title>
   <link href="http://xiechenny.github.io/blog/categories/octopress/atom.xml" rel="self"/>
   <link href="http://xiechenny.github.io/"/>
-  <updated>2014-05-08T16:41:41+08:00</updated>
+  <updated>2014-05-08T21:50:40+08:00</updated>
   <id>http://xiechenny.github.io/</id>
   <author>
     <name><![CDATA[ChennyXIE]]></name>
@@ -32,32 +32,63 @@ jekyll的英文页面看得实在头大，我几乎都想自己在文本里打&l
 <p>这是一个零基础在octopress下，用各种手段发可爱的post的心路历程，只当学习吐槽了。
 找了半天终于找到了markdown语法文档，也就是octopress默认生成的post文件所使用的解析方法了。
 （<a href="http://daringfireball.net/projects/markdown/">http://daringfireball.net/projects/markdown/</a> ）
-英文渣暂且一边看一遍挑有用的列一列。</p>
+暂且一边看一遍挑常用的列一列。</p>
 
 <!--more-->
 
 
 <p>1、首先是换行，so easy 文本里两个回车（空一行）自动换行，和latex一样嘛</p>
 
-<p>2、发高亮代码，和网上众多教程一样对代码高亮支持很好用法也简单：</p>
+<p>2、发代码，用法也简单，代码块前面集体加tab缩进，效果：</p>
 
-<p>效果拔群：
-<div>
-  <pre><code class='ruby'>def show
+<pre><code>def show
   @widget = Widget(params[:id])
-  respond_to do |format|&lt;/p&gt;
+  respond_to do |format|
+    format.html # show.html.erb
+    format.json { render json: @widget }
+  end
+end
+</code></pre>
 
-&lt;pre&gt;&lt;code&gt;format.html # show.html.erb
-format.json { render json: @widget }
-&lt;/code&gt;&lt;/pre&gt;
+<p>3、引用，每段开头加&gt;：</p>
 
-&lt;p&gt;  end
-end</code></pre>
-</div>
-</p>
+<p>代码：</p>
 
-<p>3、插入链接：
-&hellip;</p>
+<p>— — — — — — — — — — — — — — — — — — —</p>
+
+<p>&gt; 我是引用，blablabla&hellip;</p>
+
+<p>— — — — — — — — — — — — — — — — — — —</p>
+
+<p>效果：</p>
+
+<blockquote><p>我是引用，blablabla&hellip;</p></blockquote>
+
+<p>4、斜线、加粗， (*和_的作用是一样的)：</p>
+
+<pre><code>*我加了&lt;em&gt;标签*           _我加了&lt;em&gt;标签_
+**我加了&lt;strong&gt;标签**     __我加了&lt;strong&gt;标签__
+</code></pre>
+
+<p><em>我加了&lt;em>标签</em></p>
+
+<p><strong>我加了&lt;strong>标签</strong></p>
+
+<p>5、支持的html标签:    &lt;div>, &lt;table>, &lt;pre>, &lt;p></p>
+
+<p>6、link ：</p>
+
+<pre><code>[link](http://url.blablabla...)
+</code></pre>
+
+<p>7、图片</p>
+
+<pre><code>![Alt text](/path/to/img.jpg "Optional title")
+</code></pre>
+
+<p>Last、不是tips的tips：</p>
+
+<p>需要用符号如“-”手动绘制一些边线的时候可以选用全角符号，就不会被默认语法错误识别了。</p>
 
 <p>（咳，双线程，一遍研究c++ 一遍研究octopress 写得比较慢。。。）</p>
 ]]></content>

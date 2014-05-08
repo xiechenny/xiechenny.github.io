@@ -4,7 +4,7 @@
   <title><![CDATA[XXX^^XXX Blog]]></title>
   <link href="http://xiechenny.github.io/atom.xml" rel="self"/>
   <link href="http://xiechenny.github.io/"/>
-  <updated>2014-05-08T16:41:41+08:00</updated>
+  <updated>2014-05-08T21:50:40+08:00</updated>
   <id>http://xiechenny.github.io/</id>
   <author>
     <name><![CDATA[ChennyXIE]]></name>
@@ -32,40 +32,132 @@ Project的简单编写以及一些语言点tips（
 
 <p>于是从零开始！（路线比较长，废话多，各种点都很基础，发现需要分篇了）</p>
 
-<p>第一步，自己配置vim，
-参考bbs精华帖，手把手教你把vim配置成IDE
-（<a href="http://bbs.sjtu.edu.cn/bbs0an,path,%2Fgroups%2FGROUP_3%2FGNULinux%2FSoftware%2FD95E89182%2FD5277E56B.html">http://bbs.sjtu.edu.cn/bbs0an,path,%2Fgroups%2FGROUP_3%2FGNULinux%2FSoftware%2FD95E89182%2FD5277E56B.html</a> ）
+<ul>
+<li>第一步，自己配置vim</li>
+</ul>
+
+
+<p>参考bbs精华帖( <a href="http://bbs.sjtu.edu.cn/bbs0an,path,%2Fgroups%2FGROUP_3%2FGNULinux%2FSoftware%2FD95E89182%2FD5277E56B.html">Link->点我点我</a> )，
+手把手教你把vim配置成IDE。
 教程比较长，先配置到ctags，
 project起步时文件还较少，后面的文件资源管理暂且边写边学习也不会太枯燥。</p>
 
 <!--more-->
 
 
-<p>【重要tips】配置.vimrc时需要额外注意tab键功能相关的设置,
+<p>【tips】配置.vimrc时需要额外注意tab键功能相关的设置,
 由于makefile在build target时会根据tab键来识别需要执行的编译命令，
-所以在vim中开启一些tab键与空格转换之类的操作，会引起后面make file编写失败！</p>
+所以在vim中开启一些tab键与空格转换之类的操作(如set expandtab)，会引起后面make file编写失败！</p>
 
-<p>第二步， 从零开始编写Makefile！
-网上的“跟我一起写makefile”一点都不newbie friendly啊有木有，
+<ul>
+<li>第二步， 从零开始编写Makefile！</li>
+</ul>
+
+
+<p>网上的“跟我一起写makefile”一点都不newbie friendly啊有木有，
 一上手就是维护一堆.h .c文件，而且与成型的标准Makefile模板也有较大差距。
 而直接找的Makefile模板对于beginner来说也太过复杂。
 于是先结合一下循序渐进。</p>
 
-<p>首先是最简单的Makefile，就是把g++编译命令直接放到了Makefile文件里，一目了然：</p>
+<p>a) 首先是最简单的Makefile。即把g++编译命令直接放到Makefile文件里，一目了然。
+&ldquo;{label}:&#8221;的形式定义了make的目标，如“snake：”和“clean：”等，
+在这些目标的下一行，定义的是这些标签在编译时需要执行的具体命令。
+“:snake” 不带{label}定义了默认输入make时，选择的编译对象。
+对于具体命令的编写，
+命令前（g++&hellip;前）必须是tab，才能被识别，</p>
 
-<div>
-  <pre><code class='ruby'>:snake
+<p>【tips】copy和paste Makefile中的内容也可能造成tab键的被转换成空格。</p>
+
+<pre><code>:snake
 snake : 
     g++ -o greedysnake main.cpp game.cpp game.hpp
 clean :
-    rm -rf greedysnake</code></pre>
-</div>
+    rm -rf greedysnake
+</code></pre>
 
+<p>b) 具体名称的变量名替换。对于一个标准的Makefile模板来说，
+将需要编译的文件名,编译器名等等硬编码进执行命令中显然不能被接受。
+理想的Makefile模板，应该用变量名替代source，program_name,以及一些编译的CFLAGS等等，
+因此下面是理想模板的可能结构, $(变量名)即为取具体定义的变量的值：</p>
+
+<pre><code>#Source file  
+SRC = ...  
+#Object file  
+OBJ = ...
+#Output execution file  
+PROGRAM = ...
+#Compiler  
+CC = g++  
+#Include  
+INCLUDE = ...(e.g. -I /...)  
+#Linker Parameter  
+LINKPARAM = ...(e.g. -lpthread -lncurses)  
+#Options for development  
+#CFLAGS = ...
+#Options for release  
+CFLAGS = ...
+
+: $(PROGRAM)  
+$(PROGRAM):
+...(具体的编译命令)
+
+由于一些复杂的设定如INCLUDE和LINKPARAM，CFLAGS之类的可能还用不到，简单的替换最初实现，得到：
+
+#Source file  
+SRC = main.cpp game.cpp game.hpp
+#Output execution file  
+PROG = greedysnake
+#Compiler  
+CC = g++  
+
+:snake
+snake : 
+    $(CC) -o $(PROG) $(SRC)
+clean :
+    rm -rf $(PROG)
+</code></pre>
+
+<p>c) 然后讨论具体的编译命令的编写。
+在复杂的project中，文件的编译可能有复杂的dependency关系，
+可以在之前的基础上，加上：&#8221;{label}:{dependency files}&ldquo;，声明具体的依赖关系。
+同时由于有许多的source文件，为了使得单一修改只造成需要的文件的重编译而不是编译全部程序，同时也有利于编译时的debug。
+可以将cpp先编译成.o文件，再根据dependency关系利用.o文件进行下一步编译。
+而声名dependency后，依赖的文件被修改，会使当前文件进行重编译。
+因此我可以看到在标准模板的结构中把object files的定义也抽离出来了。</p>
+
+<p>修改dependency并拆分编译步骤后，之前实现更改如下：</p>
+
+<pre><code># source files
+SRC =   game.cpp
+SRCMAIN = main.cpp
+# object files
+OBJ =  $(SRC:.cpp=.o)
+#Output execution file  
+PROG = greedysnake
+#Compiler  
+CC = g++  
+
+:snake
+snake : $(SRCMAIN) $(OBJ)
+    $(CC) -o $(PROG)  $(SRCMAIN) $(OBJ)
+game.o: game.cpp game.hpp
+    $(CC) -c game.cpp
+clean :
+    rm -rf $(PROG)
+</code></pre>
+
+<p>其中，$(SRC:.cpp=.o) 表示将每个source file的.cpp后缀替换成.o 。
+(实际上，g++ -c game.cpp时自动载入了hpp文件)</p>
+
+<p>【tips】“SRC:.cpp=.o”等号左右无空格，否则会引起替换失败。</p>
+
+<p>d) 最后考虑Makefile的静态匹配模式，自动将cpp编译成.o 。
+&ldquo;$(OBJ) : %.o : %.cpp %.hpp &rdquo; 在OBJ定义的文件中，依次用%匹配.o 文件，对于每个文件，依赖关系为相应的.cpp和.hpp;
+&ldquo;$(CC) -c $(CFLAGS) $&lt;&rdquo; 利用依赖文件(用$&lt;指代) 来编译目标.o , 如果需要用到目标文件则用 $@ 。</p>
 
 <p>最终新手简洁渣成果版：</p>
 
-<div>
-  <pre><code class='ruby'># source files
+<pre><code># source files
 SRC =   game.cpp
 SRCMAIN = main.cpp
 # object files
@@ -76,19 +168,16 @@ CC  =   g++
 PROG    =   greedysnake
 # for developmemt
 # CFLAGS
-CFLAG = &quot;&quot;
+CFLAGS = -O
 
 :snake
-snake : $(OBJ)
+snake : $(SRCMAIN) $(OBJ)
     $(CC) -o $(PROG) $(SRCMAIN) $(OBJ)
-%.o : %.cpp %.hpp
+$(OBJ) : %.o : %.cpp %.hpp 
     $(CC) -c $(CFLAGS) $&lt;
 clean :
-    rm -rf *.o $(PROG)</code></pre>
-</div>
-
-
-
+    rm -rf *.o $(PROG)
+</code></pre>
 ]]></content>
   </entry>
   
@@ -111,30 +200,63 @@ jekyll的英文页面看得实在头大，我几乎都想自己在文本里打&l
 <p>这是一个零基础在octopress下，用各种手段发可爱的post的心路历程，只当学习吐槽了。
 找了半天终于找到了markdown语法文档，也就是octopress默认生成的post文件所使用的解析方法了。
 （<a href="http://daringfireball.net/projects/markdown/">http://daringfireball.net/projects/markdown/</a> ）
-英文渣暂且一边看一遍挑有用的列一列。</p>
+暂且一边看一遍挑常用的列一列。</p>
 
 <!--more-->
 
 
 <p>1、首先是换行，so easy 文本里两个回车（空一行）自动换行，和latex一样嘛</p>
 
-<p>2、发高亮代码，和网上众多教程一样对代码高亮支持很好用法也简单：</p>
+<p>2、发代码，用法也简单，代码块前面集体加tab缩进，效果：</p>
 
-<p>效果拔群：</p>
-
-<div>
-  <pre><code class='ruby'>def show
+<pre><code>def show
   @widget = Widget(params[:id])
   respond_to do |format|
     format.html # show.html.erb
     format.json { render json: @widget }
   end
-end</code></pre>
-</div>
+end
+</code></pre>
 
+<p>3、引用，每段开头加&gt;：</p>
 
-<p>3、插入链接：
-&hellip;</p>
+<p>代码：</p>
+
+<p>— — — — — — — — — — — — — — — — — — —</p>
+
+<p>&gt; 我是引用，blablabla&hellip;</p>
+
+<p>— — — — — — — — — — — — — — — — — — —</p>
+
+<p>效果：</p>
+
+<blockquote><p>我是引用，blablabla&hellip;</p></blockquote>
+
+<p>4、斜线、加粗， (*和_的作用是一样的)：</p>
+
+<pre><code>*我加了&lt;em&gt;标签*           _我加了&lt;em&gt;标签_
+**我加了&lt;strong&gt;标签**     __我加了&lt;strong&gt;标签__
+</code></pre>
+
+<p><em>我加了&lt;em>标签</em></p>
+
+<p><strong>我加了&lt;strong>标签</strong></p>
+
+<p>5、支持的html标签:    &lt;div>, &lt;table>, &lt;pre>, &lt;p></p>
+
+<p>6、link ：</p>
+
+<pre><code>[link](http://url.blablabla...)
+</code></pre>
+
+<p>7、图片</p>
+
+<pre><code>![Alt text](/path/to/img.jpg "Optional title")
+</code></pre>
+
+<p>Last、不是tips的tips：</p>
+
+<p>需要用符号如“-”手动绘制一些边线的时候可以选用全角符号，就不会被默认语法错误识别了。</p>
 
 <p>（咳，双线程，一遍研究c++ 一遍研究octopress 写得比较慢。。。）</p>
 ]]></content>
