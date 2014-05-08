@@ -4,7 +4,7 @@
   <title><![CDATA[Category: octopress | XXX^^XXX Blog]]></title>
   <link href="http://xiechenny.github.io/blog/categories/octopress/atom.xml" rel="self"/>
   <link href="http://xiechenny.github.io/"/>
-  <updated>2014-05-07T19:29:38+08:00</updated>
+  <updated>2014-05-08T16:41:41+08:00</updated>
   <id>http://xiechenny.github.io/</id>
   <author>
     <name><![CDATA[ChennyXIE]]></name>
@@ -30,7 +30,9 @@ jekyll的英文页面看得实在头大，我几乎都想自己在文本里打&l
 可是我等懒人实在受不了要么如此朴素的post要么如此复杂的输入啊喂。。。</p>
 
 <p>这是一个零基础在octopress下，用各种手段发可爱的post的心路历程，只当学习吐槽了。
-（refer to <a href="http://jekyllrb.com/docs/posts/">http://jekyllrb.com/docs/posts/</a> ）</p>
+找了半天终于找到了markdown语法文档，也就是octopress默认生成的post文件所使用的解析方法了。
+（<a href="http://daringfireball.net/projects/markdown/">http://daringfireball.net/projects/markdown/</a> ）
+英文渣暂且一边看一遍挑有用的列一列。</p>
 
 <!--more-->
 
@@ -53,6 +55,11 @@ format.json { render json: @widget }
 end</code></pre>
 </div>
 </p>
+
+<p>3、插入链接：
+&hellip;</p>
+
+<p>（咳，双线程，一遍研究c++ 一遍研究octopress 写得比较慢。。。）</p>
 ]]></content>
   </entry>
   

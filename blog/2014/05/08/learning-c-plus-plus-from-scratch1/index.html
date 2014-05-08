@@ -5,7 +5,7 @@
 	<meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	<meta charset="utf-8">
-	<title>XXX^^XXX Blog</title>
+	<title>JAVA程序员从零开始学习C++(1),vim & makefile | XXX^^XXX Blog</title>
 
 	<meta name="author" content="ChennyXIE">
 	
@@ -23,31 +23,16 @@
 	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 </head>
 
-<body class="home-template">
-  <header id="site-head">
-  <div class="vertical">
-    <div id="site-head-content" class="inner">
-      <h1 class="blog-title"><a class="no-rollover" href="/">XXX^^XXX Blog</a></h1>
-      <h2 class="blog-description">Please smile.</h2>
-    </div>
-  </div>
-</header>
-  <main class="content" role="main">
-    
-
-
-    <article class="post">
-	
+<body class="post-template">
+  <main class="content" role="main"><article class="post">
+  
 	<header class="post-header">
-		<span class="post-meta">08 May 2014</span>
-		<h2 class="post-title">
-			
-			<a href="/blog/2014/05/08/learning-c-plus-plus-from-scratch1/">
-			
-				JAVA程序员从零开始学习C++(1),vim & Makefile</a>
-		</h2>
+		<a id="blog-logo" href="/">XXX^^XXX Blog</a>
 	</header>
-	<section class="post-excerpt">
+	<span class="post-meta">08 May 2014</span>
+	<h1 class="post-title">JAVA程序员从零开始学习C++(1),vim & Makefile</h1>
+
+	<section class="post-content">
 		<p>作为一个本科期间只系统学过JAVA的程序员，
 虽然至今为止多多少少也已经修改并优化过许多基于c++的开源程序，
 相关书籍也多多少少看了一些，但终归不成系统。
@@ -68,49 +53,87 @@ Project的简单编写以及一些语言点tips（
 教程比较长，先配置到ctags，
 project起步时文件还较少，后面的文件资源管理暂且边写边学习也不会太枯燥。</p>
 
+<!--more-->
+
+
+<p>【重要tips】配置.vimrc时需要额外注意tab键功能相关的设置,
+由于makefile在build target时会根据tab键来识别需要执行的编译命令，
+所以在vim中开启一些tab键与空格转换之类的操作，会引起后面make file编写失败！</p>
+
+<p>第二步， 从零开始编写Makefile！
+网上的“跟我一起写makefile”一点都不newbie friendly啊有木有，
+一上手就是维护一堆.h .c文件，而且与成型的标准Makefile模板也有较大差距。
+而直接找的Makefile模板对于beginner来说也太过复杂。
+于是先结合一下循序渐进。</p>
+
+<p>首先是最简单的Makefile，就是把g++编译命令直接放到了Makefile文件里，一目了然：</p>
+
+<div>
+  <pre><code class='ruby'>:snake
+snake : 
+    g++ -o greedysnake main.cpp game.cpp game.hpp
+clean :
+    rm -rf greedysnake</code></pre>
+</div>
+
+
+<p>最终新手简洁渣成果版：</p>
+
+<div>
+  <pre><code class='ruby'># source files
+SRC =   game.cpp
+SRCMAIN = main.cpp
+# object files
+OBJ =  $(SRC:.cpp=.o)
+# compiler
+CC  =   g++
+# program name
+PROG    =   greedysnake
+# for developmemt
+# CFLAGS
+CFLAG = &quot;&quot;
+
+:snake
+snake : $(OBJ)
+    $(CC) -o $(PROG) $(SRCMAIN) $(OBJ)
+%.o : %.cpp %.hpp
+    $(CC) -c $(CFLAGS) $&lt;
+clean :
+    rm -rf *.o $(PROG)</code></pre>
+</div>
+
+
+
 
 	</section>
-</article>
 
+  <footer class="post-footer">
+  <section class="author">
+    <h4>About Me</h4>
+    <p>ChennyXIE [xie.chenny@gmail.com]<br/> 
+	Master cadidate now ^.^</p>
+  </section>
+  <section class="share">
+    <h4>Share this post</h4>
+    <a class="icon-twitter" href="http://twitter.com/share?text=JAVA程序员从零开始学习C++(1),vim & makefile&amp;url=http://xiechenny.github.io/blog/2014/05/08/learning-c-plus-plus-from-scratch1/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+      <span class="hidden">Twitter</span>
+    </a>
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://xiechenny.github.io/blog/2014/05/08/learning-c-plus-plus-from-scratch1/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+      <span class="hidden">Facebook</span>
+    </a>
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://xiechenny.github.io/blog/2014/05/08/learning-c-plus-plus-from-scratch1/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+      <span class="hidden">Google+</span>
+    </a>
+  </section>
+</footer>
+  <hr>
+  
+    <div class="share">
+</div>
 
-    <article class="post">
-	
-	<header class="post-header">
-		<span class="post-meta">07 May 2014</span>
-		<h2 class="post-title">
-			
-			<a href="/blog/2014/05/07/how-to-write-a-post/">
-			
-				Octopress写多彩的博文</a>
-		</h2>
-	</header>
-	<section class="post-excerpt">
-		<p>关于octopress建立博客小站的教程太多，
-其实octopress本身的英文页面就介绍得挺详细的，
-问题是一切顺利的广为人知的流程在搭完blog、显示出第一个hello world的simple post之后就结束啦，
-怎么帖代码（教怎么高亮代码的倒是很多。。。），怎么贴图，怎么贴表格，怎么加粗加颜色删除线下划线……</p>
-
-<p>&lt;&mdash;&mdash; 咳，吐槽帝的需求的确比较麻烦，不符合hacker大人们的极简脑回路 &ndash; &ndash;|| 。。。
-jekyll的英文页面看得实在头大，我几乎都想自己在文本里打&lt;/br&gt; 和 &lt;img&gt;&lt;/img&gt;了，咳。</p>
-
-<p>大概hacker们的思路太跳脱，这种小问题也需要解决么，文本编辑器里自己写去。。。
-可是我等懒人实在受不了要么如此朴素的post要么如此复杂的输入啊喂。。。</p>
-
-<p>这是一个零基础在octopress下，用各种手段发可爱的post的心路历程，只当学习吐槽了。
-找了半天终于找到了markdown语法文档，也就是octopress默认生成的post文件所使用的解析方法了。
-（<a href="http://daringfireball.net/projects/markdown/">http://daringfireball.net/projects/markdown/</a> ）
-英文渣暂且一边看一遍挑有用的列一列。</p>
-
-
-	</section>
-</article>
-
-<nav id="pagenavi">
-    
-    
-    <div class="center"><a href="/blog/archives">Blog Archives</a></div>
-</nav>
-  </main>
+  
+  
+</article></main>
   <footer class="site-footer"><a class="subscribe icon-feed" href="http://xiechenny.github.io/atom.xml"><span class="tooltip">Subscribe!</span></a>
 
 

@@ -2,15 +2,19 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://xiechenny.github.io/blog/2014/05/07/how-to-write-a-post/</loc>
-        <lastmod>2014-05-07T19:10:20+08:00</lastmod>
+        <lastmod>2014-05-08T16:32:13+08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://xiechenny.github.io/blog/2014/05/08/learning-c-plus-plus-from-scratch1/</loc>
+        <lastmod>2014-05-08T16:41:41+08:00</lastmod>
     </url>
     <url>
         <loc>http://xiechenny.github.io/blog/</loc>
-        <lastmod>2014-05-07T19:10:20+08:00</lastmod>
+        <lastmod>2014-05-08T16:41:41+08:00</lastmod>
     </url>
     <url>
         <loc>http://xiechenny.github.io/blog/archives/</loc>
-        <lastmod>2014-05-07T19:10:20+08:00</lastmod>
+        <lastmod>2014-05-08T16:41:41+08:00</lastmod>
     </url>
     <url>
         <loc>http://xiechenny.github.io/robots.txt</loc>
@@ -18,14 +22,14 @@
     </url>
     <url>
         <loc>http://xiechenny.github.io/</loc>
-        <lastmod>2014-05-07T19:10:20+08:00</lastmod>
+        <lastmod>2014-05-08T16:41:41+08:00</lastmod>
     </url>
     <url>
         <loc>http://xiechenny.github.io/archives/</loc>
-        <lastmod>2014-05-07T19:10:20+08:00</lastmod>
+        <lastmod>2014-05-08T16:41:41+08:00</lastmod>
     </url>
     <url>
         <loc>http://xiechenny.github.io/posts/</loc>
-        <lastmod>2014-05-07T19:10:20+08:00</lastmod>
+        <lastmod>2014-05-08T16:41:41+08:00</lastmod>
     </url>
 </urlset>

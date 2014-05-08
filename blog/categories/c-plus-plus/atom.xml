@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: c++ | XXX^^XXX Blog]]></title>
+  <link href="http://xiechenny.github.io/blog/categories/c-plus-plus/atom.xml" rel="self"/>
+  <link href="http://xiechenny.github.io/"/>
+  <updated>2014-05-08T16:41:41+08:00</updated>
+  <id>http://xiechenny.github.io/</id>
+  <author>
+    <name><![CDATA[ChennyXIE]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[JAVA程序员从零开始学习C++(1),vim & makefile]]></title>
+    <link href="http://xiechenny.github.io/blog/2014/05/08/learning-c-plus-plus-from-scratch1/"/>
+    <updated>2014-05-08T15:42:54+08:00</updated>
+    <id>http://xiechenny.github.io/blog/2014/05/08/learning-c-plus-plus-from-scratch1</id>
+    <content type="html"><![CDATA[<p>作为一个本科期间只系统学过JAVA的程序员，
+虽然至今为止多多少少也已经修改并优化过许多基于c++的开源程序，
+相关书籍也多多少少看了一些，但终归不成系统。
+因为网易实习的c++并linux编程环境需求，
+终于决定以greedy snake为例从零开始学习build c++ project ^ ^.</p>
+
+<p>基本思路很简单：
+从配置环境开始，学习Makefile编写以及makefile生成工具，
+Project的简单编写以及一些语言点tips（
+输出基于命令行，学习一下CJ推荐的courses库；
+先不做用户交互，直接写自动运行版的贪吃蛇，设计一下算法，最后再加入交互支持）。</p>
+
+<p>于是从零开始！（路线比较长，废话多，各种点都很基础，发现需要分篇了）</p>
+
+<p>第一步，自己配置vim，
+参考bbs精华帖，手把手教你把vim配置成IDE
+（<a href="http://bbs.sjtu.edu.cn/bbs0an,path,%2Fgroups%2FGROUP_3%2FGNULinux%2FSoftware%2FD95E89182%2FD5277E56B.html">http://bbs.sjtu.edu.cn/bbs0an,path,%2Fgroups%2FGROUP_3%2FGNULinux%2FSoftware%2FD95E89182%2FD5277E56B.html</a> ）
+教程比较长，先配置到ctags，
+project起步时文件还较少，后面的文件资源管理暂且边写边学习也不会太枯燥。</p>
+
+<!--more-->
+
+
+<p>【重要tips】配置.vimrc时需要额外注意tab键功能相关的设置,
+由于makefile在build target时会根据tab键来识别需要执行的编译命令，
+所以在vim中开启一些tab键与空格转换之类的操作，会引起后面make file编写失败！</p>
+
+<p>第二步， 从零开始编写Makefile！
+网上的“跟我一起写makefile”一点都不newbie friendly啊有木有，
+一上手就是维护一堆.h .c文件，而且与成型的标准Makefile模板也有较大差距。
+而直接找的Makefile模板对于beginner来说也太过复杂。
+于是先结合一下循序渐进。</p>
+
+<p>首先是最简单的Makefile，就是把g++编译命令直接放到了Makefile文件里，一目了然：
+<div>
+  <pre><code class='ruby'>:snake
+snake :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;g++ -o greedysnake main.cpp game.cpp game.hpp
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;clean :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;rm -rf greedysnake
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;</code></pre>
+</div>
+</p>
+
+<p>最终新手简洁渣成果版：
+<div>
+  <pre><code class='ruby'>&lt;/p&gt;
+
+&lt;h1&gt;source files&lt;/h1&gt;
+
+&lt;p&gt;SRC =   game.cpp
+SRCMAIN = main.cpp&lt;/p&gt;
+
+&lt;h1&gt;object files&lt;/h1&gt;
+
+&lt;p&gt;OBJ =  $(SRC:.cpp=.o)&lt;/p&gt;
+
+&lt;h1&gt;compiler&lt;/h1&gt;
+
+&lt;p&gt;CC  =   g++&lt;/p&gt;
+
+&lt;h1&gt;program name&lt;/h1&gt;
+
+&lt;p&gt;PROG    =   greedysnake&lt;/p&gt;
+
+&lt;h1&gt;for developmemt&lt;/h1&gt;
+
+&lt;h1&gt;CFLAGS&lt;/h1&gt;
+
+&lt;p&gt;CFLAG = &amp;ldquo;&amp;rdquo;&lt;/p&gt;
+
+&lt;p&gt;:snake
+snake : $(OBJ)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$(CC) -o $(PROG) $(SRCMAIN) $(OBJ)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;%.o : %.cpp %.hpp&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$(CC) -c $(CFLAGS) $&amp;lt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;clean :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;rm -rf *.o $(PROG)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;</code></pre>
+</div>
+</p>
+]]></content>
+  </entry>
+  
+</feed>
